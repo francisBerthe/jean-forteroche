@@ -1,0 +1,223 @@
+              /* BLOC-CONNEXION */
+
+
+             
+             /* IMAGE RESPONSIVE */
+
+img {
+  max-width: 100%;
+  width: auto;
+  height: auto;    
+}            
+
+
+               /* VARIABLES CSS */
+
+:root {
+  --couleurVert: #3d856e;
+  --couleurGris: #a5a4a4;
+  --couleurGrisText: #676666;  
+  --couleurBleu: #274267;  
+  --couleurNoir: #000;
+  --couleurBlanc: #fff; 
+  --couleurVertConfirmation: #69bd45;
+  --couleurRougeErreur: #f15a35;  
+}
+
+
+                /* a */
+a, a:hover, a:visited, a:active {
+	color: inherit;
+    text-decoration: none;
+}
+          
+
+
+             /* BLOC-Connexion */
+
+.bloc-connexion {
+  width: 100%;
+  height: 100%;
+  background-image: url(img/motif-points.png);
+  background-repeat: repeat;
+  background-size: 11%;
+  opacity: 0.95;    
+  -webkit-box-shadow: 15px 5px 5px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 15px 5px 5px 2px rgba(0, 0, 0, 0.2);  
+  top: 0px;    
+  position: absolute;
+  z-index: 100000;
+  visibility: visible;    
+}
+
+.ajout-informations {  /* Ajout de la fleche & indications */
+    width: 20%;
+    float: right;
+    margin-right: 200px;
+    margin-top: 120px;
+    visibility: hidden;
+}
+
+.bloc-connexion-titre {
+  left: 100px;
+  top: 60px;
+  position: absolute;    
+}
+
+.titre-bloc-connexion {
+   text-transform: uppercase;
+   font-size: 2.8em;
+   position: absolute;    
+}
+
+.trait-bloc-connexion {
+   width: 260px;
+   height: 6px;
+   background-color: var(--couleurBlanc);
+   border: 2px solid var(--couleurNoir);
+   margin-top: 60px; 
+   position: absolute;    
+}
+
+.bouton-fermer-connexion {
+   width: 140px;
+   height: 140px;
+   background-color: rgba(255, 255, 255, 0.5);
+   border: 5px solid var(--couleurNoir);
+   right: 100px;
+   top: 60px;
+   position: absolute;
+   z-index: 10000;
+   -webkit-transition: all 0.2s ease-out;
+   transition: all 0.2s ease-out;
+   cursor: pointer;
+}
+
+.bouton-fermer-connexion:hover {
+   -webkit-box-shadow: 7px 10px 2px rgba(0, 0, 0, 0.1);
+   box-shadow: 7px 10px 2px rgba(0, 0, 0, 0.1); 
+}
+
+.croix-bouton {
+   width: 105px;
+   margin-left: 11px;
+   margin-top: 10px;
+}
+
+.trait-bouton-fermer {
+   width: 130px;
+   height: 3.5px;
+   background-color: var(--couleurNoir);
+   left: 0;
+   bottom: 10px; 
+   position: absolute;
+}
+
+  /* HEADER/ Bloc-Connexion - Champs */
+.champs-connexions {
+    margin-top: 22.5%;
+    margin-left: 50%;
+    -webkit-transform: translate(-20%, 0%);
+    transform: translate(-20%, 0%);
+}
+
+.message-erreur {
+    width: 400px;
+    height: 40px;
+    background-color: var(--couleurRougeErreur);
+    color: var(--couleurBlanc);
+    text-align: center;
+    padding-top: 6px;
+    margin-left: -85px;
+    margin-bottom: 20px;
+}
+
+.text-erreur {
+    background-color: var(--couleurRougeErreur);
+    color: var(--couleurBlanc);
+}
+
+.connexion-champs {
+    margin-bottom: 25px;
+}
+
+.label-pseudo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 0px;
+    padding-bottom: 7px;
+    padding-top: 15px;    
+    display: block;
+}
+
+.label-password {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 0px;
+    padding-bottom: 7px;    
+    margin-top: 30px;
+    display: block;
+}
+
+.input-connexion {
+    padding-left: 10px;
+}
+
+
+
+
+    /* HEADER/ Bloc-Connexion - Bouton-Champs */
+.bouton-connexion-page {
+   margin-top: 25px;
+   margin-left: 40px;     
+}
+
+.bouton-page-connexion {
+   width: 145px;
+   height: 40px;
+   font-size: 1.2em;
+   font-weight: 600; 
+   text-transform: uppercase;
+   color: var(--couleurNoir); 
+   background-color: rgba(255, 255, 255, 0.2);
+   border: 3px solid var(--couleurNoir);
+   padding-bottom: 10px;    
+   -webkit-transition: all 0.4s ease-out;    
+   transition: all 0.4s ease-out; 
+   position: relative;    
+}
+
+.bouton-page-connexion:hover {
+   color: var(--couleurBlanc);
+   background-color: var(--couleurNoir);
+   border: 3px solid var(--couleurBlanc); 
+   -webkit-box-shadow: 7px 8px 2px rgba(0, 0, 0, 0.1); 
+   box-shadow: 7px 8px 2px rgba(0, 0, 0, 0.1);
+}
+
+.bouton-page-connexion-trait {
+   width: 139px;
+   height: 2px;
+   background-color: var(--couleurNoir);
+   margin-top: -8px;
+   margin-left: 3px;    
+}
+
+.inscription {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 400;
+    color: var(--couleurNoir);
+    margin-top: 40px;
+    margin-left: 75px;
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+}
+
+.inscription:hover {
+    color: var(--couleurGris);
+    text-decoration: underline;
+}
