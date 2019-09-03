@@ -1,118 +1,384 @@
-                             <!-- COMPTE --> 
-         <?php
-              session_start(); //Pour utiliser les session (a mettre au debut)
-              if(!isset($_SESSION["membre"])) //Si pas de session membre
-                  header("location: connexion.php"); //Redirection vers connexion.php
-              
-              require_once "fonctions/bdd.php"; //Require_once -> Si fichier pas present annule l'affichage du site
-              include_once "fonctions/membre.php"; //Include_once -> charge 1 fois le blog
-              include_once "fonctions/blog.php"; //Include_once -> charge 1 fois le blog
-              
-              $bdd = bdd(); //Execution de la fonction bdd()
-
-              $infos = infos(); //Récupération d'infos avec la fonction infos()
-              $commentaires = commentaires_user(); //Récupération des commentaires avec la fonction : commentaires_user()
-           ?>
-                     
-                     
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- META Description -->
-  <meta name="identifier-url" content="http://jean-forteroche.francis-berthe.fr/">
-  <meta name="title" content="Blog du livre : Billet Simple pour L'Alaska">
-  <meta name="description" content="Bienvenue sur le blog de Jean Forteroche, découvrez son premier roman 
-                                    et suivez toute l’actu littéraire.">
-  <meta name="author" content=" Berthe Francis">
-  <meta name="publisher" content=" Berthe Francis">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
-  <!-- OPEN GRAPH Meta -->
-  <meta property="og:title" content="Blog du livre : Billet Simple pour L'Alaska"/>
-  <meta property="og:type" content="Blog" />
-  <meta property="og:url" content="http://jean-forteroche.francis-berthe.fr/" />
-  <meta property="og:image" content="http://example.com/image.jpg" />
-  <meta property="og:description" content="Bienvenue sur le blog de Jean Forteroche, découvrez son premier roman 
-                                           et suivez toute l’actu littéraire.">
-  
-  
-  <title>J.Forteroche - Mon Compte</title>
-  
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="ico/favicon-grand.png"> 
-  <!-- BALISES Link -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <!-- BALISE Font -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet"> 
-  <!-- BALISE FontAwesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  
-  <!-- BALISE Style -->
-  <link rel="stylesheet" href="css/compte.css">
-    
-  
-</head>
-<body>
-        
-                         <!-- HEADER -->
-   
-  <header>
-     <div class="bloc-header">
-       <div class="fond-menu">
-          <img class="logo-header" src="./css/img/logo-header.png" alt= "Logo du blog de Jean Forteroche." />
-          <div id="bouton-deconnexion" class="bouton-deconnexion">
-              <p class="text-bouton-deconnexion"><a href="deconnexion.php">déconnexion</a></p>
-             <div class="bouton-deconnexion-trait"></div>
-          </div>
-          <div class="bouton-accueil">
-             <a href="index.php"><p class="text-bouton-accueil">accueil</p></a>
-             <div class="bouton-accueil-trait"></div>
-          </div>
-       </div>
-     </div>    
-  </header> 
-                           
-        <!-- SECTION/ Compte Utilisateur & Espace Membre -->                  
-  <section>
-       <div class="bloc-compte">
-           <h2 class="text-bienvenue">Bienvenue <?= $infos["pseudo"] ?></h2>
-           <p class="text-mail-membre"><span class="text-mail-capitale"> Adresse mail : </span><i><?= $infos["email"] ?></i></p>
-           <h2 class="text-dernier-commentaire">Mes Derniers Commentaires !</h2>
-       </div>
-       
-      <?php
-      foreach($commentaires as $commentaire) :
-      ?>
-      <div class="commentaires">
-          <div class="commentaire-auteur">
-             <div class="nom-auteur">
-                <p class="date">Posté sur le chapitre "<?= $commentaire["titre"] ?>",il y a "<?= time_publication(strtotime($commentaire["date"])) ?>"</p>
-             </div>
-             <p class="commentaire"><?= $commentaire["commentaire"] ?></p>
-             <hr class="separation-commentaire">
-          </div>
-      </div>
-      <?php
-      endforeach;
-      ?>
-    </section>                           
+               /* PAGE -> COMPTE */
                
-                          <!-- BOUTON -->
-         <?php include_once("bouton.php"); ?>
-                         
-                          <!-- FOOTER -->
-         <?php include_once("footer.php"); ?>
-     
-     
-    <!-- JavaScript/ Bouton -->
-  <script src="bouton.js"></script>
-     <!-- JavaScript/ Main -->            
-  <script src="main.js"></script>
 
-</body>
-</html>
-  
-  
+              /* IMAGE RESPONSIVE */
+
+img {
+  max-width: 100%;
+  width: auto;
+  height: auto;    
+}            
+
+
+               /* VARIABLES CSS */
+
+:root {
+  --couleurVert: #3d856e;
+  --couleurGris: #a5a4a4;
+  --couleurGrisText: #676666;  
+  --couleurBleu: #274267;  
+  --couleurNoir: #000;
+  --couleurBlanc: #fff; 
+  --couleurVertConfirmation: #69bd45;
+  --couleurRougeErreur: #f15a35;    
+}
+
+
+           /* BODY */
+body {
+   top: 0px;
+   margin: 0px;
+   padding: 0px;
+}
+
+            /* a */
+a, a:hover, a:visited, a:active {
+	color: inherit;
+    text-decoration: none;
+}
+
+    /* HEADER */
+.fond-menu {
+    width: 100%;
+    height: 90px;
+    background-color: rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    top: 0px;
+    position: fixed;
+    z-index: 99999;
+}
+
+.logo-header {
+   width: 180px;    
+   top: 18px;
+   left: 7%;
+   position: absolute; 
+   z-index: 9999;    
+}
+
+             /* HEADER/ Boutons */
+.bouton-deconnexion {
+   width: 165px;
+   height: 40px;
+   background-color: rgba(255, 255, 255, 0.2);
+   border: 3px solid var(--couleurNoir);
+   right: 40px;
+   top: 30px;
+   position: absolute;
+   -webkit-transition: all 0.2s ease-out;
+   transition: all 0.2s ease-out;
+   cursor: pointer; 
+}
+
+.bouton-deconnexion:hover {
+   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.text-bouton-deconnexion {
+    font-size: 1.2em;
+    font-weight: 600; 
+    text-transform: uppercase;
+    color: var(--couleurNoir);
+    margin-left: 12.5px;
+}
+
+.bouton-deconnexion-trait {
+   width: 159px;
+   height: 2px;
+   background-color: var(--couleurNoir);
+   left: 0;
+   bottom: 4px; 
+   position: absolute;
+}
+
+.bouton-accueil {
+   width: 125px;
+   height: 40px;
+   background-color: rgba(255, 255, 255, 0.5);
+   border: 3px solid var(--couleurNoir);
+   right: 230px;
+   top: 30px;    
+   position: absolute;
+   -webkit-transition: all 0.2s ease-out;
+   transition: all 0.2s ease-out; 
+}
+
+.bouton-accueil:hover {
+   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.text-bouton-accueil {
+    font-size: 1.2em;
+    font-weight: 600; 
+    text-transform: uppercase;
+    color: var(--couleurNoir);
+    margin-left: 20px;
+}
+
+.bouton-accueil-trait {
+   width: 122px;
+   height: 2px;
+   background-color: var(--couleurNoir);
+   left: 0;
+   bottom: 4px; 
+   position: absolute;
+}
+
+      
+     /* SECTION/ Compte Utilisateur & Espace Membre */
+
+.bloc-compte {
+  margin-left: 200px;
+}
+
+.text-bienvenue {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2em;
+  font-weight: 600;    
+  color: var(--couleurNoir);  
+  margin-top: 150px;
+}
+
+.text-mail-membre {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8em;
+  font-weight: 200;    
+  color: var(--couleurNoir);  
+}
+
+.text-mail-capitale {
+  font-weight: 600; 
+}
+
+.text-dernier-commentaire {
+  margin-top: 50px;
+  padding-bottom: 500px;
+}
+
+
+    
+           /* SECTION/ Commentaires */
+.commentaires {
+   width: 100%;
+   min-height: 800px;
+   padding-left: 200px;
+}
+
+.commentaire-auteur {
+    margin-bottom: 50px;
+}
+
+.date {
+   font-size: 0.9em;
+   font-weight: 600; 
+   padding-top: 5px;    
+}
+
+.commentaire {
+   max-width: 650px; 
+   height: auto; 
+   font-size: 0.9em;
+   font-weight: 400;
+}
+
+.separation-commentaire {
+   width: 650px;
+   float: left;    
+}
+
+
+
+       /* FOOTER/ Bouton-up */
+.bouton-up {
+   width: 60px;
+   height: 60px;
+   background-color: rgba(255, 255, 255, 0.2);
+   border: 3px solid var(--couleurNoir);
+   left: 50%;
+   -webkit-transform: translate(-50%,0);
+   transform: translate(-50%,0);
+   margin-top: -150px;
+   position: absolute;
+   -webkit-transition: all 0.3s ease-out;
+   transition: all 0.3s ease-out;  
+   cursor: pointer;
+}
+
+.bouton-up:hover  {
+   background-color: rgba(255, 255, 255, 0.8); 
+   -webkit-box-shadow: 7px 5px 5px rgba(0, 0, 0, 0.2);
+   box-shadow: 7px 5px 5px rgba(0, 0, 0, 0.2);  
+}
+
+.trait {
+   width: 57px;
+   height: 2px;
+   background-color: var(--couleurNoir);
+   left: 0;
+   bottom: 6px; 
+   position: absolute;
+}
+
+.fleche-bouton-up {
+   width: 45px;
+   margin-top: 10px;
+   margin-left: 4px;    
+}
+
+
+
+          /* FOOTER/ Reseaux sociaux */
+.icones-reseaux {
+    width: 100%;
+    height: 40px;
+    background-color: var(--couleurNoir);
+    list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+}
+
+.icones {
+   width: 35px; 
+   height: 35px;
+   border-radius: 50%;
+   background-color: var(--couleurBlanc);     
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   margin-top: 2px;
+   margin-left: 95px;
+   -webkit-transition: all 0.3s ease-out;
+   transition: all 0.3s ease-out; 
+}
+
+.icones:hover {
+   background-color: var(--couleurVert); 
+}
+
+.icones-marge {
+   width: 35px; 
+   height: 35px;
+   border-radius: 50%;
+   background-color: var(--couleurBlanc);     
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   margin-top: 2px;
+   margin-left: 38%;
+   -webkit-transition: all 0.3s ease-out;
+   transition: all 0.3s ease-out; 
+}
+
+.icones-marge:hover {
+   background-color: var(--couleurVert);     
+}
+
+.fa-google-plus-g {
+   font-size: 1.3em;
+   -webkit-transform: translate(15%, 32%);
+   transform: translate(15%, 32%);
+}
+
+.fa-twitter {
+    font-size: 1.3em;
+    -webkit-transform: translate(35%, 30%);
+    transform: translate(35%, 30%);
+}
+
+.fa-facebook-f {
+    font-size: 1.3em;
+    -webkit-transform: translate(110%, 30%);
+    transform: translate(110%, 30%);
+}
+
+.text-google {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8em;
+    color: var(--couleurBlanc);
+    margin-top: 15%;
+    margin-left: 15px;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; 
+}
+
+.text-google:hover {
+    color: var(--couleurGris);
+}
+
+.text-twitter {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8em;
+    color: var(--couleurBlanc);
+    margin-top: 15%;
+    margin-left: 20px;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; 
+}
+
+.text-twitter:hover {
+    color: var(--couleurGris);
+}
+
+.text-facebook {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8em;
+    color: var(--couleurBlanc);
+    margin-top: 10%;
+    margin-left: 30px;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; 
+}
+
+.text-facebook:hover {
+    color: var(--couleurGris);
+}
+
+         
+       /* FOOTER/ Bloc-footer */
+.bloc-footer {
+    width: 100%;
+    height: 270px;
+    background-color: var(--couleurGris);
+}
+
+.logo {
+    width: 28%;
+    margin-left: 50%;
+    margin-top: 70px;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%);
+}
+
+.text-bloc-footer {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8em;
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.text-bloc-footer:hover {
+    color: var(--couleurGrisText);
+    margin-top: 10px;
+}
+
+            /* FOOTER/ Rights */
+.rights {
+    width: 100%;
+    height: 30px;
+    line-height: 0;
+    background-color: var(--couleurBlanc);
+}
+
+.text-rights {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0px;
+    padding-top: 15px;
+}
+
+
